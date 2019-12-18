@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TermController!
+{% endblock %}
+
+{% block body %}	
+
+	<div class="example-wrapper">
+		<h1>Glossaire</h1>
+		<a href='{{ path('term_add')}}' class='btn btn-success mb-2'>Ajout</a>
+		<ul class="list-group">
+			{% for term in terms %}
+				<li class="list-group-item">
+					<b>
+						<a href='{{ path('term_delete',{'id': term.id } ) }}' class='btn btn-danger mb-2'>
+							<i class="fas fa-trash mr-1"></i>
+						</a>
+						<a href='{{ path('term_update',{'id': term.id })}}' class='btn btn-success mb-2'>
+							<i class="fas fa-pen mr-1"></i>
+						</a>
+						<a href='{{ path('term_show',{'id': term.id } ) }}'>
+							{{ term.name }}
+						</a>
+					</b>
+					:
+					{{ term.description }}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

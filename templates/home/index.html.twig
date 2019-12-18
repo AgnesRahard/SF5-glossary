@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% block body %}
+	{% if name is empty %}
+		<p>Bienvenue
+			{{name}}</p>
+	{% else %}
+		<p>Bonjour
+			{{name|capitalize}}</p>
+	{% endif %}
+{% endblock %}
