@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{% if langue.flag %}
+	<div class="form-group">
+		<label for="langue_flag">Drapeau actuellement téléchargé:</label>
+		<div class="flag">
+			<img src='{{ asset('img/flag/' ~ langue.flag) }}' height='50px'>
+		</div>
+	</div>
+{% endif %}
+{% if is_granted("ROLE_ADMIN") %}
+	<button class="btn">{{ button_label|default('Save') }}</button>
+{% endif %}
+{{ form_end(form) }}

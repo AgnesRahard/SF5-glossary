@@ -3,29 +3,58 @@
 {% block title %}Hello TermController!
 {% endblock %}
 
-{% block body %}	
-
+{% block body %}
+	{# {{ dump(terms) }} #}
 	<div class="example-wrapper">
 		<h1>Glossaire</h1>
-		<a href='{{ path('term_add')}}' class='btn btn-success mb-2'>Ajout</a>
-		<ul class="list-group">
+		{% if is_granted("ROLE_ADMIN") %}
+			<a href='{{ path('term_add')}}' class='btn btn-success mb-2'><i class="fas fa-plus mr-1"></i>Ajout</a>
+		{% endif %}
+
+		<table class="table">
+		<thead>
+			<tr>
+				{% if is_granted("ROLE_ADMIN") %}
+					<th>Id</th>
+				{% endif %}				
+				<th>Catégorie</th>
+				<th>Terme</th>
+				<th>Définition</th>
+				<th class='text-right'>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
 			{% for term in terms %}
-				<li class="list-group-item">
-					<b>
-						<a href='{{ path('term_delete',{'id': term.id } ) }}' class='btn btn-danger mb-2'>
-							<i class="fas fa-trash mr-1"></i>
+				<tr>
+					{% if is_granted("ROLE_ADMIN") %}
+						<td>{{ term.id }}</td>
+				{% endif %}
+					<td>{{ term.category }}</td>
+					<td>{{ term.name }}</td>
+					<td>{{ term.description }}</td>
+					<td
+						class='text-right'>
+						{# <a href="{{ path('langue_show', {'id': langue.id}) }}">show</a>
+																								<a href="{{ path('langue_edit', {'id': langue.id}) }}">edit</a> #}
+						{% if is_granted("ROLE_ADMIN") %}
+							<a href='{{ path('term_delete',{'id': term.id } ) }}' class='btn btn-danger mr-2'>
+								<i class="fas fa-trash"></i>
+							</a>
+							<a href='{{ path('term_update',{'id': term.id })}}' class='btn btn-success mr-2'>
+								<i class="fas fa-pen"></i>
+							</a>
+						{% endif %}
+						<a href='{{ path('term_show',{'id': term.id } ) }}' class='btn btn-primary mr-2'>
+							<i class="fas fa-eye"></i>
 						</a>
-						<a href='{{ path('term_update',{'id': term.id })}}' class='btn btn-success mb-2'>
-							<i class="fas fa-pen mr-1"></i>
-						</a>
-						<a href='{{ path('term_show',{'id': term.id } ) }}'>
-							{{ term.name }}
-						</a>
-					</b>
-					:
-					{{ term.description }}
-				</li>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucune langue</td>
+				</tr>
 			{% endfor %}
-		</ul>
+		</tbody>
+	</table>
 	</div>
 {% endblock %}

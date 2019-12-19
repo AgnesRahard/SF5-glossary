@@ -23,13 +23,12 @@ class TermRepository extends ServiceEntityRepository
     //  * @return Term[] Returns an array of Term objects
     //  */
 
-    public function findByExampleField($value)
+    public function findJoin()
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('t','c')
+            ->leftJoin('t.category', 'c')
             ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;

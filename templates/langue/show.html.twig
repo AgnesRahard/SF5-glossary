@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Langue
+{% endblock %}
+
+{% block body %}
+	<h1 class='text-center'>Langue</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ langue.id }}</td>
+			</tr>
+			<tr>
+				<th>Code</th>
+				<td>{{ langue.code }}</td>
+			</tr>
+			<tr>
+				<th>Libelle</th>
+				<td>{{ langue.libelle }}</td>
+			</tr>
+			<tr>
+				<th>Drapeau</th>
+				<td>
+					{% if langue.flag %}
+						<p><img src='{{ asset('img/flag/' ~ langue.flag) }}' height='50px'/></p>
+					{% endif %}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('langue_index') }}">Retour à la liste</a>
+	{% if is_granted("ROLE_ADMIN") %}
+		<a href="{{ path('langue_edit', {'id': langue.id}) }}">Editer</a>
+		{{ include('langue/_delete_form.html.twig') }}
+	{% endif %}
+{% endblock %}

@@ -4,11 +4,16 @@
 {% endblock %}
 
 {% block body %}
-	{% if name is empty %}
-		<p>Bienvenue
-			{{name}}</p>
-	{% else %}
-		<p>Bonjour
-			{{name|capitalize}}</p>
-	{% endif %}
+	<div class='text-center m-3'>
+		{% if app.user is empty %}
+			<h1>Bienvenue</h1>
+			<p>Vous n'êtes pas connecté. Vous pouvez consulter le glossaire sans le modifier</p>
+		{% else %}
+			<h1>Bonjour
+			{{app.user.username}}</h1>
+			<p>Vous êtes connecté. Vous pouvez consulter et modifier le glossaire</p>
+		{% endif %}		
+		<p>Utilisez le menu pour accéder au glossaire</p>
+	</div>
+	
 {% endblock %}

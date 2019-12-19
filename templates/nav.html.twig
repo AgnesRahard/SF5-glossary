@@ -11,22 +11,41 @@
 				<a href='{{ path('home_page')}}' class="nav-link">
 					<i class="fas fa-home mr-1"></i>Accueil</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item d-none">
 				<a href='{{ path('test_page')}}' class="nav-link">
 					<i class="fas fa-vial mr-1"></i>Test</a>
 			</li>
-			<li class="nav-item">
-				<a href='{{ path('category_index')}}' class="nav-link">
-					<i class="fas fa-sort-amount-up mr-1"></i>Catégorie</a>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Glossaire
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="{{ path('langue_index')}}"><i class="fas fa-globe mr-1"></i>Langue</a>
+					<a class="dropdown-item" href="{{ path('category_index')}}"><i class="fas fa-sitemap mr-1"></i>Catégorie</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="{{ path('term')}}"><i class="fas fa-list mr-1"></i>Terme</a>
+				</div>
 			</li>
 			<li class="nav-item">
-				<a href='{{ path('term')}}' class="nav-link">
-					<i class="fas fa-list mr-1"></i>Glossaire</a>
-			</li>
-			
-			{# <li class="nav-item"> #}
 				<a href='{{ path('contact')}}' class="nav-link">
 					<i class="fas fa-envelope mr-1"></i>Contact</a>
+			</li>
+		</ul>
+	</div>
+	<div id="navbarSupportedContent" class="collapse navbar-collapse justify-content-end">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				{% if is_granted("ROLE_ADMIN") %}
+					<a class="nav-link alert-light" href="{{ path('app_logout') }}">
+						<i class="fas fa-power-off"></i>
+						Quitter
+					</a>
+				{% else %}
+					<a class="nav-link alert-light" href="{{ path('app_login') }}">
+						<i class="fas fa-sign-in-alt"></i>
+						Se connecter
+					</a>
+				{% endif %}
 			</li>
 		</ul>
 	</div>

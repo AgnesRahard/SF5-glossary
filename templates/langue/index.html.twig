@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Langue index
+{% endblock %}
+
+{% block body %}
+	<h1 class='text-center'>Liste des langues</h1>
+	{% if is_granted("ROLE_ADMIN") %}
+		<a href='{{ path('langue_new')}}' class='btn btn-success mb-2'>
+			<i class="fas fa-plus mr-2"></i>Ajout
+		</a>
+	{% endif %}
+	<table class="table">
+		<thead>
+			<tr>
+				{% if is_granted("ROLE_ADMIN") %}
+					<th>Id</th>
+				{% endif %}
+				<th>Drapeau</th>
+				<th>Code</th>
+				<th>Libellé</th>
+				<th class='text-right'>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for langue in langues %}
+				<tr>
+					{% if is_granted("ROLE_ADMIN") %}
+						<td>{{ langue.id }}</td>
+					{% endif %}
+					<td><img src='{{ asset('img/flag/' ~ langue.flag) }}' height='30px'/></td>
+					<td>{{ langue.code }}</td>
+					<td>{{ langue.libelle }}</td>
+					<td
+						class='text-right'>
+						{# <a href="{{ path('langue_show', {'id': langue.id}) }}">show</a>
+																								<a href="{{ path('langue_edit', {'id': langue.id}) }}">edit</a> #}
+						{% if is_granted("ROLE_ADMIN") %}
+							<a href='{{ path('langue_delete',{'id': langue.id } ) }}' class='btn btn-danger mr-2'>
+								<i class="fas fa-trash"></i>
+							</a>
+							<a href='{{ path('langue_edit',{'id': langue.id })}}' class='btn btn-success mr-2'>
+								<i class="fas fa-pen"></i>
+							</a>
+						{% endif %}
+						<a href='{{ path('langue_show',{'id': langue.id } ) }}' class='btn btn-primary mr-2'>
+							<i class="fas fa-eye"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucune langue</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

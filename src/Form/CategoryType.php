@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Langue;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
@@ -13,6 +15,10 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('langue', EntityType::class, [
+                'class' => Langue::class,
+                'choice_label' => 'libelle'
+                ])
         ;
     }
 

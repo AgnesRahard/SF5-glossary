@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Term;
 use App\Form\TermType;
+use App\Form\CategoryType;
 use App\Service\MessageGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TermController extends AbstractController
@@ -32,7 +34,7 @@ class TermController extends AbstractController
     /**
      * @Route("/term/{id}", name="term_show",
      * requirements={"id"="\d+"}
-     * )     * 
+     * )    
      */
     public function show($id)
     {
@@ -51,6 +53,7 @@ class TermController extends AbstractController
      * @Route("/delete/{id}", name="term_delete",
      * requirements={"id"="\d+"}
      * )      
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(MessageGenerator $messageGenerator, EntityManagerInterface $manager, $id)
     {
@@ -73,6 +76,7 @@ class TermController extends AbstractController
 
     /**
      * @Route("/add", name="term_add") 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function add(MessageGenerator $messageGenerator, Request $request, EntityManagerInterface $manager)
     {
@@ -106,6 +110,7 @@ class TermController extends AbstractController
 
     /**
      * @Route("/update/{id}", name="term_update") 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function update(Request $request, EntityManagerInterface $manager, $id)
     {
